@@ -1,16 +1,19 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro'; // You'll build this next
+import Roadmap from '../components/Roadmap.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="My Portfolio">
+  <Navbar />
+  <main>
+    <Hero name="YOUR NAME" />
+    <section id="projects">
+       </section>
+    <section id="roadmap">
+       <Roadmap />
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,26 @@
+---
+const milestones = [
+  { date: "2023", title: "Started Data Analytics Degree", desc: "Enrolled in 6 subjects and became a Student Ambassador." },
+  { date: "2024", title: "CTF Competitions", desc: "Focused on binary exploitation and low-level C programming." }
+];
+---
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Roadmap & History</h2>
+    
+    <div class="relative border-l-2 border-black ml-4 md:ml-0 md:left-1/2">
+      {milestones.map((item) => (
+        <div class="mb-10 ml-6 md:ml-0 relative w-full">
+          <div class="absolute -left-[9px] md:left-[-9px] w-4 h-4 bg-black rounded-full border-4 border-white"></div>
+          
+          <div class="md:w-5/12 ml-4 md:ml-0 p-6 bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition-shadow">
+            <span class="text-sm font-bold text-gray-500 uppercase">{item.date}</span>
+            <h3 class="text-xl font-bold text-black mt-1">{item.title}</h3>
+            <p class="text-gray-600 mt-2 text-sm">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
