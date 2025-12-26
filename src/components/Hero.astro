@@ -1,20 +1,20 @@
 ---
-const { name = "YOUR NAME", profileImage = "/profile.jpg" } = Astro.props;
+const { name = "Khairul Azizi", profileImage = "/profile.jpg" } = Astro.props;
 ---
 
 <section class="min-h-screen flex flex-col items-center justify-center pt-20 bg-white px-6">
   <div class="relative mb-8">
     <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-gray-100 shadow-xl">
-      <img src={profileImage} alt={name} class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+      <img src={profileImage} alt={name} class="w-full h-full object-cover" />
     </div>
   </div>
 
   <div class="text-center mb-12">
-    <h1 class="text-5xl md:text-7xl font-black text-black tracking-tighter mb-2">{name}</h1>
-    <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">Data Analytics & Security Student</p>
+    <h1 class="text-5xl md:text-7xl font-black text-black tracking-wide mb-2">{name}</h1>
+    <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">FELDA Scholar, APU Data Analytics Student</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2xl w-full">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-5xl w-full">
     <div class="flex flex-col items-center text-center group">
       <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
@@ -29,6 +29,22 @@ const { name = "YOUR NAME", profileImage = "/profile.jpg" } = Astro.props;
       </div>
       <h3 class="font-bold text-black mb-1">Data Analytics</h3>
       <p class="text-sm text-gray-500 leading-relaxed">Turning raw data into meaningful insights using Python and SQL.</p>
+    </div>
+
+    <div class="flex flex-col items-center text-center group">
+      <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+      </div>
+      <h3 class="font-bold text-black mb-1">Process Automation</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">Deploying scalable automation and infrastructure on VPS environments.</p>
+    </div>
+
+    <div class="flex flex-col items-center text-center group">
+      <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+      </div>
+      <h3 class="font-bold text-black mb-1">Community & Leadership</h3>
+      <p class="text-sm text-gray-500 leading-relaxed">Balancing academic excellence with community impact and self-improvement.</p>
     </div>
   </div>
 

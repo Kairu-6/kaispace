@@ -2,18 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
-import Projects from '../components/Projects.astro'; // You'll build this next
+import Projects from '../components/Projects.astro';
+import Involvements from '../components/Involvements.astro';
 import Roadmap from '../components/Roadmap.astro';
+import Contact from '../components/Contact.astro';
 ---
 
-<Layout title="My Portfolio">
+<Layout title="Data & Systems Portfolio">
   <Navbar />
   <main>
-    <Hero name="YOUR NAME" />
-    <section id="projects">
-       </section>
-    <section id="roadmap">
-       <Roadmap />
-    </section>
+    <Hero />
+    <Projects />
+    <Roadmap />
+    <Involvements />
+    <Contact/>
   </main>
 </Layout>

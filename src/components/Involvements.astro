@@ -1,0 +1,52 @@
+---
+import { supabase } from '../lib/supabase';
+
+// Fetch involvements ordered by status (Current first) then by start date
+const { data: involvements, error } = await supabase
+  .from('involvements')
+  .select('*')
+  .order('is_active', { ascending: false })
+  .order('start_date', { ascending: false });
+
+if (error) {
+  console.error("Error fetching involvements:", error.message);
+}
+---
+
+<section class="py-24 bg-white" id="involvements">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="mb-16">
+      <h2 class="text-4xl font-black text-black tracking-tighter">Involvement & Leadership</h2>
+      <p class="text-gray-500 mt-2 text-lg">Roles, volunteering, and community impact.</p>
+    </div>
+
+    <div class="space-y-12">
+      {involvements && involvements.map((item) => (
+        <div class="group flex flex-col md:flex-row justify-between items-start gap-4 pb-8 border-b border-gray-100 last:border-0">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+              <h3 class="text-2xl font-bold text-black group-hover:text-gray-700 transition-colors">
+                {item.role}
+              </h3>
+              {item.is_active && (
+                <span class="bg-black text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-tighter">
+                  Active
+                </span>
+              )}
+            </div>
+            <p class="text-lg font-medium text-gray-500 mb-4">{item.organization}</p>
+            <p class="text-gray-600 leading-relaxed text-sm md:text-base max-w-2xl">
+              {item.description}
+            </p>
+          </div>
+          
+          <div class="text-right whitespace-nowrap">
+            <p class="text-sm font-bold text-gray-400 font-mono">
+              {new Date(item.start_date).getFullYear()} — {item.is_active ? 'Present' : new Date(item.end_date).getFullYear()}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

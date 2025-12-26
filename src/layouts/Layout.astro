@@ -18,9 +18,16 @@ import '../styles/global.css'
 		<title>{title}</title>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-white text-black selection:bg-black selection:text-white">
+	<body class="bg-white text-black selection:bg-black selection:text-white overflow-x-hidden">
 		<slot /> </body>
 </html>
+
+<footer class="bg-black text-gray-600 py-12 border-t border-gray-900 text-center">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="text-sm">© 2025 Portfolio. Built with Astro, Tailwind, and Supabase.</p>
+    <p class="text-[10px] uppercase tracking-[0.2em] mt-2 font-bold text-gray-800">Designed for 2029 Graduation</p>
+  </div>
+</footer>
 
 <style is:global>
 	:root {
