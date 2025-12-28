@@ -4,3 +4,5 @@ export const supabase = createClient(
     import.meta.env.SUPABASE_URL,
     import.meta.env.SUPABASE_ANON_KEY
 );
+
+export const owner_id = import.meta.env.PORTFOLIO_OWNER_ID;

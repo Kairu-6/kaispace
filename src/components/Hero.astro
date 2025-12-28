@@ -1,17 +1,28 @@
 ---
-const { name = "Khairul Azizi", profileImage = "/profile.jpg" } = Astro.props;
+import { supabase, owner_id } from "../lib/supabase";
+
+//const { name = "Khairul Azizi", profileImage = "/profile.jpg" } = Astro.props;
+
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('full_name, bio, avatar_url')
+  .eq('id', owner_id)
+  .single();
+
+console.log("Current ID being used:", owner_id);
+console.log("Profile Data Found:", profile);
 ---
 
 <section class="min-h-screen flex flex-col items-center justify-center pt-20 bg-white px-6">
   <div class="relative mb-8">
     <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-gray-100 shadow-xl">
-      <img src={profileImage} alt={name} class="w-full h-full object-cover" />
+      <img src={profile?.avatar_url} alt={profile?.full_name} class="w-full h-full object-cover" />
     </div>
   </div>
 
   <div class="text-center mb-12">
-    <h1 class="text-5xl md:text-7xl font-black text-black tracking-wide mb-2">{name}</h1>
-    <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">FELDA Scholar, APU Data Analytics Student</p>
+    <h1 class="text-5xl md:text-7xl font-black text-black tracking-wide mb-2">{profile?.full_name}</h1>
+    <p class="text-gray-500 font-medium tracking-widest uppercase text-sm">{profile?.bio}</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-5xl w-full">

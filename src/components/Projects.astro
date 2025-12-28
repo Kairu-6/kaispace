@@ -1,10 +1,11 @@
 ---
-import { supabase } from '../lib/supabase';
+import { supabase, owner_id } from '../lib/supabase';
 
 // Fetch projects from the database
 const { data: projects, error } = await supabase
   .from('projects')
   .select('*')
+  .eq('user_id', owner_id)
   .order('created_at', { ascending: false })
   .limit(4);
 
@@ -17,7 +18,7 @@ if (error) {
   <div class="max-w-6xl mx-auto px-6">
     <div class="mb-16">
       <h2 class="text-4xl font-black text-black tracking-tighter">Recent Projects</h2>
-      <p class="text-gray-500 mt-2">A collection of work fueled by curiosity, coffee, and late-night commits.</p>
+      <p class="text-gray-500 mt-2">A collection of work fueled by self-made deadline, coffee, and late-night commits.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">

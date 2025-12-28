@@ -1,5 +1,5 @@
 ---
-import { supabase } from "../lib/supabase";
+import { supabase, owner_id } from "../lib/supabase";
 
 const milestones = [
   { date: "2023", title: "Started Data Analytics Degree", desc: "Enrolled in 6 subjects and became a Student Ambassador." },
@@ -9,6 +9,7 @@ const milestones = [
 const { data: roadmapItems, error } = await supabase
   .from('roadmap')
   .select('*')
+  .eq('user_id', owner_id)
   .order('order_index', {ascending: true})
   .limit(5)
 ---

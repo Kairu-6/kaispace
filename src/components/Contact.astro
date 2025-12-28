@@ -1,5 +1,15 @@
 ---
+import { supabase } from '../lib/supabase';
+
+// Fetch profile data
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('specialization, github_url, linkedin_url')
+  .single();
+
+const displayUrl = (url: string) => url?.replace(/^https?:\/\//, '');
 ---
+
 <section class="py-24 bg-black text-white" id="contact">
   <div class="max-w-6xl mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
@@ -8,18 +18,24 @@
         <div>
           <h2 class="text-5xl font-black tracking-tighter mb-4">Let's build<br/>something great.</h2>
           <p class="text-gray-400 text-lg max-w-md">
-            Currently focusing on Data Analytics and Low-Level Security. Reach out for collaborations or just to talk tech.
+            Currently focusing on 
+            <span class="text-white font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent border-b border-white/10">
+              {profile?.specialization || 'Data Analytics and Low-Level Security'}
+            </span>. 
+            Reach out for collaborations or just to connect.
           </p>
         </div>
 
         <div class="space-y-6">
           <div class="group flex items-center gap-4">
             <div class="w-12 h-12 rounded-full border border-gray-800 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
             </div>
             <div>
-              <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">Email</p>
-              <p class="font-medium">azizikhairul666@email.com</p>
+              <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">LinkedIn</p>
+              <a href={profile?.linkedin_url} target="_blank" class="font-medium hover:text-blue-400 transition-colors">
+                {displayUrl(profile?.linkedin_url) || 'linkedin.com/in/username'}
+              </a>
             </div>
           </div>
 
@@ -29,7 +45,9 @@
             </div>
             <div>
               <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">GitHub</p>
-              <p class="font-medium">github.com/yourusername</p>
+              <a href={profile?.github_url} target="_blank" class="font-medium hover:text-gray-400 transition-colors">
+                {displayUrl(profile?.github_url) || 'github.com/username'}
+              </a>
             </div>
           </div>
         </div>
@@ -39,18 +57,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-2">
             <label class="text-xs font-bold text-gray-400 uppercase ml-1">Name</label>
-            <input type="text" placeholder="John Doe" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+            <input name="name" type="text" placeholder="Syam" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
           </div>
           <div class="space-y-2">
             <label class="text-xs font-bold text-gray-400 uppercase ml-1">Email</label>
-            <input type="email" placeholder="john@example.com" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+            <input name="email" type="email" placeholder="syam@example.com" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
           </div>
         </div>
         <div class="space-y-2">
           <label class="text-xs font-bold text-gray-400 uppercase ml-1">Message</label>
-          <textarea rows="5" placeholder="Hey, I'm interested in..." class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700 resize-none"></textarea>
+          <textarea name="message" rows="5" placeholder="Hi, I would like to..." class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700 resize-none"></textarea>
         </div>
-        <button class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-gray-200 hover:scale-[1.01] active:scale-[0.99] transition-all tracking-tighter uppercase">
+        <button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-gray-200 hover:scale-[1.01] transition-all uppercase">
           Send Message
         </button>
       </form>

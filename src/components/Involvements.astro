@@ -1,12 +1,14 @@
 ---
-import { supabase } from '../lib/supabase';
+import { supabase, owner_id } from '../lib/supabase';
 
 // Fetch involvements ordered by status (Current first) then by start date
 const { data: involvements, error } = await supabase
   .from('involvements')
   .select('*')
+  .eq('user_id', owner_id)
   .order('is_active', { ascending: false })
-  .order('start_date', { ascending: false });
+  .order('start_date', { ascending: false })
+  .limit(4);
 
 if (error) {
   console.error("Error fetching involvements:", error.message);
@@ -42,7 +44,12 @@ if (error) {
           
           <div class="text-right whitespace-nowrap">
             <p class="text-sm font-bold text-gray-400 font-mono">
-              {new Date(item.start_date).getFullYear()} — {item.is_active ? 'Present' : new Date(item.end_date).getFullYear()}
+              {new Date(item.start_date).toLocaleString('default', { month: 'short', year: 'numeric' })} 
+              — 
+              {item.is_active 
+                ? 'Present' 
+                : new Date(item.end_date).toLocaleString('default', { month: 'short', year: 'numeric' })
+              }
             </p>
           </div>
         </div>
