@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Sign In | KaiSpace">
+<Layout title="Sign In">
   <section class="min-h-[80vh] flex items-center justify-center px-6">
     <div class="max-w-md w-full">
       <div class="text-center mb-10">
@@ -31,41 +31,49 @@ import Layout from '../layouts/Layout.astro';
         </button>
       </form>
 
-      <div id="error-msg" class="hidden mt-6 p-4 bg-red-50 text-red-500 text-xs font-bold uppercase tracking-widest rounded-xl text-center">
-        Invalid credentials. Please try again.
+      <div 
+      id="error-msg" 
+      style="display: none;" 
+      class="mt-6 p-4 bg-red-50 text-red-600 text-xs font-bold uppercase tracking-widest rounded-xl text-center border border-red-100"
+      >
+        Invalid credentials.
       </div>
     </div>
   </section>
 </Layout>
 
 <script>
-  import { supabase } from '../lib/supabase';
+  import { supabase } from "../lib/supabase";
 
-  // Use a "DOMContentLoaded" or just ensure elements exist before adding listeners
-  const form = document.getElementById('login-form') as HTMLFormElement;
-  const errorMsg = document.getElementById('error-msg') as HTMLDivElement;
+  // Use a listener to ensure the DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
 
-  if (form && errorMsg) {
+    if (!form || !errorMsg) return;
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Clear previous errors
-      errorMsg.classList.add('hidden');
+      // Hide error and show "loading" state on button if you want
+      errorMsg.style.display = 'none';
       
-      const emailInput = document.getElementById('email') as HTMLInputElement;
-      const passwordInput = document.getElementById('password') as HTMLInputElement;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const password = (document.getElementById('password') as HTMLInputElement).value;
 
-      const { error } = await supabase.auth.signInWithPassword({ 
-        email: emailInput.value, 
-        password: passwordInput.value 
-      });
+      console.log("Attempting login for:", email);
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
+        console.error("Supabase Auth Error:", error.message);
+        // Show the error message
         errorMsg.textContent = error.message;
-        errorMsg.classList.remove('hidden');
+        errorMsg.style.display = 'block';
       } else {
+        console.log("Login successful!");
         window.location.href = '/';
       }
     });
-  }
+  });
 </script>

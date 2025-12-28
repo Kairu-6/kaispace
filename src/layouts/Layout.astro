@@ -1,42 +1,50 @@
 ---
-interface Props {
-	title: string;
-}
-
 const { title } = Astro.props;
 import '../styles/global.css'
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Data Analytics & Security Portfolio" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-	</head>
-	<body class="bg-white text-black selection:bg-black selection:text-white overflow-x-hidden">
-		<slot /> </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Analytics & Security Portfolio" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  </head>
+  
+  <body class="bg-white text-black selection:bg-black selection:text-white overflow-x-hidden flex flex-col min-h-screen">
+    
+    <main class="flex-grow">
+      <slot /> 
+    </main>
+
+    <footer class="bg-black text-gray-500 py-8 border-t border-gray-900 text-center">
+      <div class="max-w-6xl mx-auto px-6">
+        <p class="text-[10px] uppercase tracking-[0.3em] font-bold mb-2">KaiSpace.</p>
+        <p class="text-xs opacity-50">
+          2025 Portfolio. Built with Astro, Tailwind, and Supabase.
+        </p>
+      </div>
+    </footer>
+
+  </body>
 </html>
 
-<footer class="bg-black text-gray-600 py-12 border-t border-gray-900 text-center">
-  <div class="max-w-6xl mx-auto px-6">
-    <p class="text-sm">2025 Portfolio. Built with Astro, Tailwind, and Supabase. </p>
-  </div>
-</footer>
-
 <style is:global>
-	:root {
-		--accent: 0, 0, 0;
-	}
-	html {
-		font-family: 'Inter', sans-serif;
-		background: #ffffff;
-	}
-	body {
-		margin: 0;
-	}
+  :root {
+    --accent: 0, 0, 0;
+  }
+  html {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+  }
+  body {
+    margin: 0;
+    /* Smooth anti-aliasing for better text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 </style>

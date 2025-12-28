@@ -10,8 +10,38 @@
       <a href="#involvements" class="hover:text-black transition-colors">Involvements</a>
       <a href="#contact" class="hover:text-black transition-colors">Contact</a>
     </div>
-    <a href="/login" class="px-5 py-2 border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all rounded-full">
-      Sign In
-    </a>
+
+    <div id="auth-button-container">
+      <a href="/login" class="px-5 py-2 border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all rounded-full">
+        Sign In
+      </a>
+    </div>
   </div>
 </nav>
+
+<script>
+  import { supabase } from "../lib/supabase";
+
+  const container = document.getElementById('auth-button-container');
+
+  async function updateNav() {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session && container) {
+      // Replace with Sign Out button
+      container.innerHTML = `
+        <button id="signout-btn" class="px-5 py-2 bg-black text-white text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all rounded-full">
+          Sign Out
+        </button>
+      `;
+
+      // Add click listener to the new button
+      document.getElementById('signout-btn')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = "/"; // Refresh and go home
+      });
+    }
+  }
+
+  updateNav();
+</script>

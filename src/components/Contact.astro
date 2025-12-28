@@ -1,10 +1,11 @@
 ---
-import { supabase } from '../lib/supabase';
+import { supabase, owner_id } from '../lib/supabase';
 
 // Fetch profile data
 const { data: profile } = await supabase
   .from('profiles')
   .select('specialization, github_url, linkedin_url')
+  .eq('id', owner_id)
   .single();
 
 const displayUrl = (url: string) => url?.replace(/^https?:\/\//, '');
@@ -53,26 +54,92 @@ const displayUrl = (url: string) => url?.replace(/^https?:\/\//, '');
         </div>
       </div>
 
-      <form class="bg-gray-900/50 p-8 rounded-3xl border border-gray-800 space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-2">
-            <label class="text-xs font-bold text-gray-400 uppercase ml-1">Name</label>
-            <input name="name" type="text" placeholder="Syam" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+      <div class="relative">
+        <form id="contact-form" class="bg-gray-900/50 p-8 rounded-3xl border border-gray-800 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 uppercase ml-1">Name</label>
+              <input required name="name" type="text" placeholder="Syam" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-gray-400 uppercase ml-1">Email</label>
+              <input required name="email" type="email" placeholder="syam@example.com" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+            </div>
           </div>
           <div class="space-y-2">
-            <label class="text-xs font-bold text-gray-400 uppercase ml-1">Email</label>
-            <input name="email" type="email" placeholder="syam@example.com" class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700" />
+            <label class="text-xs font-bold text-gray-400 uppercase ml-1">Message</label>
+            <textarea required name="message" rows="5" placeholder="Hi, I would like to..." class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700 resize-none"></textarea>
           </div>
+          <button id="submit-btn" type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-gray-200 hover:scale-[1.01] transition-all uppercase">
+            Send Message
+          </button>
+        </form>
+
+        <div id="form-feedback" class="hidden absolute inset-0 bg-black/95 rounded-3xl flex flex-col items-center justify-center text-center p-8 border border-gray-800 z-10">
+            <div class="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="text-2xl font-black uppercase mb-2">Message Sent</h3>
+            <p class="text-gray-400 text-sm">Transmitted successfully. I'll get back to you soon.</p>
+            <button onclick="location.reload()" class="mt-6 text-xs font-bold uppercase tracking-[0.2em] border-b border-gray-800 pb-1 hover:border-white transition-all">New Message</button>
         </div>
-        <div class="space-y-2">
-          <label class="text-xs font-bold text-gray-400 uppercase ml-1">Message</label>
-          <textarea name="message" rows="5" placeholder="Hi, I would like to..." class="w-full bg-black border border-gray-800 p-4 rounded-xl focus:outline-none focus:border-white transition-all text-white placeholder:text-gray-700 resize-none"></textarea>
-        </div>
-        <button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-gray-200 hover:scale-[1.01] transition-all uppercase">
-          Send Message
-        </button>
-      </form>
+      </div>
 
     </div>
   </div>
 </section>
+
+<script>
+  import { supabase } from '../lib/supabase';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const feedback = document.getElementById('form-feedback');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // UI Loading State
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Transmitting...";
+
+    const formData = new FormData(form);
+    
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    };
+
+    const { error } = await supabase
+      .from('contact_messages')
+      .insert([payload]);
+
+    if (error) {
+      // Log for your own debugging in the console
+      console.error("Transmission Error:", error.message);
+
+      // Default message
+      let userMessage = "Transmission failed. Our uplink is currently down.";
+
+      // Check for your SQL Rate Limiter Exception
+      if (error.message.includes("Rate limit exceeded")) {
+        userMessage = "SYSTEM COOL-DOWN ACTIVE: Please wait before re-sending.";
+      } 
+      // Check for RLS issues (Security block)
+      else if (error.message.includes("row-level security policy")) {
+        userMessage = "SECURITY PROTOCOL: Message blocked. Check your inputs.";
+      }
+
+      alert(userMessage);
+
+      // Reset button so they can try again
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Send Message";
+    } else {
+      // Success state
+      feedback?.classList.remove('hidden');
+      form.reset();
+    }
+  });
+</script>
