@@ -6,7 +6,7 @@ const { data: roadmapItems, error } = await supabase
   .select('*')
   .eq('user_id', owner_id)
   .order('order_index', {ascending: true})
-  .limit(5)
+  .limit(6)
 ---
 
 <section class="py-24 bg-gray-50 overflow-hidden" id="roadmap">
