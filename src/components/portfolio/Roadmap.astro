@@ -1,5 +1,5 @@
 ---
-import { supabase, owner_id } from "../lib/supabase";
+import { supabase, owner_id } from "../../lib/supabase";
 
 const { data: roadmapItems, error } = await supabase
   .from('roadmap')

@@ -1,5 +1,5 @@
 ---
-import { supabase, owner_id } from '../lib/supabase';
+import { supabase, owner_id } from '../../lib/supabase';
 
 // Fetch profile data
 const { data: profile } = await supabase
@@ -94,7 +94,7 @@ const displayUrl = (url: string) => url?.replace(/^https?:\/\//, '');
 </section>
 
 <script>
-  import { supabase } from '../lib/supabase';
+  import { supabase } from '../../lib/supabase';
 
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const feedback = document.getElementById('form-feedback');

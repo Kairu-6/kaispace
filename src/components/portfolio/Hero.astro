@@ -1,5 +1,5 @@
 ---
-import { supabase, owner_id } from "../lib/supabase";
+import { supabase, owner_id } from "../../lib/supabase";
 
 //const { name = "Khairul Azizi", profileImage = "/profile.jpg" } = Astro.props;
 
@@ -9,8 +9,6 @@ const { data: profile } = await supabase
   .eq('id', owner_id)
   .single();
 
-console.log("Current ID being used:", owner_id);
-console.log("Profile Data Found:", profile);
 ---
 
 <section class="min-h-screen flex flex-col items-center justify-center pt-20 bg-white px-6">

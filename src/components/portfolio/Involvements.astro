@@ -1,5 +1,5 @@
 ---
-import { supabase, owner_id } from '../lib/supabase';
+import { supabase, owner_id } from '../../lib/supabase';
 
 // Fetch involvements ordered by status (Current first) then by start date
 const { data: involvements, error } = await supabase
