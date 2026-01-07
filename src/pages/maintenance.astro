@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Maintenance" showFooter={false}>
+  <main class="flex flex-col items-center justify-center min-h-screen bg-black text-white font-mono">
+    <div class="border border-zinc-800 p-8 text-center max-w-md">
+      <h1 class="text-xl mb-4 text-cyan-500">SYSTEM_MAINTENANCE</h1>
+      
+      <div class="text-left space-y-2 text-sm text-zinc-400">
+        <p> status: in development</p>
+        <p> progress: [||||||||||---] 75%</p>
+        <p> estimated_time: 2 hours</p>
+      </div>
+
+      <div class="mt-8">
+        <a href="/" class="text-xs border border-zinc-700 px-4 py-2 hover:bg-white hover:text-black transition-colors">
+          RETRY_CONNECTION
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
