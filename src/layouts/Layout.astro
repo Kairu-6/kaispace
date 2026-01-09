@@ -20,7 +20,7 @@ import Navbar from '../components/portfolio/Navbar.astro';
     
     {showNavbar && <Navbar inPortfolio={inPortfolio} />}
 
-    <main class={`flex-grow ${showNavbar ? 'pt-16' : ''}`}>
+    <main class={`grow ${showNavbar ? 'pt-16' : ''}`}>
       <slot /> 
     </main>
 
