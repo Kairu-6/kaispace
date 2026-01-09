@@ -1,15 +1,18 @@
 ---
+const { inPortfolio = false } = Astro.props;
 ---
 <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <a href="/" class="text-xl font-bold tracking-wide text-black">KaiSpace.</a>
     
-    <div class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-      <!-- <a href="#projects" class="hover:text-black transition-colors">Projects</a> -->
-      <a href="#roadmap" class="hover:text-black transition-colors">Roadmap</a>
-      <a href="#involvements" class="hover:text-black transition-colors">Involvements</a>
-      <a href="#contact" class="hover:text-black transition-colors">Contact</a>
-    </div>
+    {inPortfolio && (
+      <div class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+        <!-- <a href="#projects" class="hover:text-black transition-colors">Projects</a> -->
+        <a href="#roadmap" class="hover:text-black transition-colors">Roadmap</a>
+        <a href="#involvements" class="hover:text-black transition-colors">Involvements</a>
+        <a href="#contact" class="hover:text-black transition-colors">Contact</a>
+      </div>
+    )}
 
     <div id="auth-button-container">
       <a href="/login" class="px-5 py-2 border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all rounded-full">

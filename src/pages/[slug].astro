@@ -1,0 +1,37 @@
+---
+import { getEntry } from 'astro:content';
+import { supabase } from '../lib/supabase';
+import PostLayout from '../layouts/PostLayout.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const { data: blogs, error } = await supabase
+    .from('blogs')
+    .select('slug')
+    .eq('status', 'published');
+
+  if (error || !blogs) {
+    console.error("Supabase fetch error:", error);
+    return [];
+  }
+
+  return blogs.map((blog) => ({
+    params: { slug: blog.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const entry = await getEntry('blog', slug);
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await entry.render();
+---
+
+<PostLayout frontmatter={entry.data}>
+  <Content />
+</PostLayout>

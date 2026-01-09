@@ -1,6 +1,7 @@
 ---
-const { title, showFooter = true } = Astro.props;
+const { title, showFooter = true, showNavbar = true, inPortfolio = false } = Astro.props;
 import '../styles/global.css'
+import Navbar from '../components/portfolio/Navbar.astro';
 ---
 
 <!doctype html>
@@ -17,7 +18,9 @@ import '../styles/global.css'
   
   <body class="bg-white text-black selection:bg-black selection:text-white overflow-x-hidden flex flex-col min-h-screen">
     
-    <main class="flex-grow">
+    {showNavbar && <Navbar inPortfolio={inPortfolio} />}
+
+    <main class={`flex-grow ${showNavbar ? 'pt-16' : ''}`}>
       <slot /> 
     </main>
 
@@ -41,7 +44,6 @@ import '../styles/global.css'
   }
   body {
     margin: 0;
-    /* Smooth anti-aliasing for better text rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -6,10 +6,11 @@ import Projects from '../components/portfolio/Projects.astro';
 import Involvements from '../components/portfolio/Involvements.astro';
 import Roadmap from '../components/portfolio/Roadmap.astro';
 import Contact from '../components/portfolio/Contact.astro';
+
+
 ---
 
-<Layout title="Portfolio">
-  <Navbar />
+<Layout title="Portfolio" inPortfolio={true}>
   <main>
     <Hero />
     <!--<Projects />}-->

@@ -1,0 +1,72 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+
+const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+---
+<Layout title={frontmatter.title} inPortfolio={false}>
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold text-black">{frontmatter.title}</h1>
+      <p class="text-gray-500 mt-2">{formattedDate}</p>
+    </header>
+
+    <div class="blog-content">
+      <slot />
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .blog-content {
+    color: #374151; 
+    line-height: 1.8;
+    font-size: 1.125rem;
+    max-width: 48rem; 
+    margin: 0 auto;
+  }
+
+  .blog-content p {
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-content h2 {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #000000;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
+  }
+
+  .blog-content pre {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+    border: 1px solid #1f2937;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .blog-content code:not(pre code) {
+    background-color: #f3f4f6; 
+    color: #111827; 
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    border: 1px solid #e5e7eb;
+  }
+
+  .blog-content img {
+    border-radius: 1rem;
+    margin: 2.5rem auto;
+    display: block;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+</style>
