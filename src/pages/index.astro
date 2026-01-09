@@ -43,23 +43,23 @@ const recentPosts = recentMetadata
   <div class="max-w-6xl mx-auto px-6 py-20">
     
     <header class="mb-16">
-      <h1 class="text-5xl font-black text-black tracking-tight mb-4 italic">THE LOGS</h1>
+      <h1 class="text-5xl font-black text-black tracking-tight mb-4 italic">The Logs.</h1>
       <p class="text-gray-500 font-mono uppercase tracking-widest text-sm">Thoughts and write-ups</p>
     </header>
 
     {famousPosts && famousPosts.length > 0 && (
       <section class="mb-20">
-        <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-8 border-b border-gray-100 pb-2">Featured Intelligence</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-8 border-b border-gray-100 pb-2">Featured</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
           {famousPosts.map((post) => (
-            <a href={`/blog/${post.slug}`} class="group block">
+            <a href={`/blog/${post?.slug}`} class="group block">
               <div class="aspect-video bg-gray-100 rounded-2xl mb-6 overflow-hidden border border-gray-100 transition-all group-hover:border-black group-hover:shadow-2xl">
                 <div class="w-full h-full bg-black flex items-center justify-center text-white font-black text-4xl opacity-10 group-hover:opacity-20 transition-opacity">
-                   {post.slug.substring(0,2).toUpperCase()}
+                   {post?.slug.substring(0,2).toUpperCase()}
                 </div>
               </div>
-              <h3 class="text-2xl font-bold mb-2 group-hover:underline underline-offset-4">{post.data.title}</h3>
-              <p class="text-gray-500 line-clamp-2 text-sm leading-relaxed">{post.data.description}</p>
+              <h3 class="text-2xl font-bold mb-2 group-hover:underline underline-offset-4">{post?.data.title}</h3>
+              <p class="text-gray-500 line-clamp-2 text-sm leading-relaxed">{post?.data.description}</p>
             </a>
           ))}
         </div>
@@ -67,14 +67,14 @@ const recentPosts = recentMetadata
     )}
 
     <section>
-      <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-8 border-b border-gray-100 pb-2">Recent Logs</h2>
+      <h2 class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-8 border-b border-gray-100 pb-2">Recent</h2>
       <div class="space-y-8">
         {recentPosts?.map((post) => (
-          <a href={`/blog/${post.slug}`} class="flex flex-col md:flex-row md:items-center justify-between group py-6 border-b border-gray-50 hover:bg-gray-50/50 px-4 -mx-4 transition-colors rounded-xl">
+          <a href={`/blog/${post?.slug}`} class="flex flex-col md:flex-row md:items-center justify-between group py-6 border-b border-gray-50 hover:bg-gray-50/50 px-4 -mx-4 transition-colors rounded-xl">
             <div class="grow">
-              <h3 class="text-xl font-bold text-black group-hover:translate-x-1 transition-transform">{post.data.title}</h3>
+              <h3 class="text-xl font-bold text-black group-hover:translate-x-1 transition-transform">{post?.data.title}</h3>
               <p class="text-gray-400 text-xs font-mono mt-1">
-                {new Date(post.created_at || post.data.pubDate).toLocaleDateString()}
+                {new Date(post?.created_at || post?.data.pubDate).toLocaleDateString()}
               </p>
             </div>
             <span class="text-black font-black text-xs uppercase tracking-widest mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">Read Log →</span>
